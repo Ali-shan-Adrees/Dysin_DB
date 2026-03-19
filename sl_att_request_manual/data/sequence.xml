@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+    <record id="seq_manual_attendance" model="ir.sequence">
+        <field name="name">Manual Attendance</field>
+        <field name="code">manual.attendance</field>
+        <field name="prefix">MA/%(year)s/</field>
+        <field name="padding">4</field>
+    </record>
+    </data>
+</odoo>

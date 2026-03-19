@@ -1,0 +1,30 @@
+<odoo>
+    <!-- Wizard Form -->
+    <record id="view_attendance_report_wizard_form" model="ir.ui.view">
+        <field name="name">attendance.report.wizard.form</field>
+        <field name="model">sl.attendance.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Attendance Report">
+                <sheet>
+                    <group>
+                    <group>
+                        <field name="date_from" string="Date From"/>
+                        <field name="employee_id"/>
+                    </group>
+                    <group>
+                         <field name="date_to"/>
+                        <field name="department_id"/>
+                    </group>
+                    </group>
+                    <footer>
+                        <button string="Generate Excel"
+                                type="object"
+                                name="action_generate_excel"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

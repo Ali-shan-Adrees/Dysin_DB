@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- FORM VIEW -->
+    <record id="view_manual_attendance_form" model="ir.ui.view">
+        <field name="name">manual.attendance.form</field>
+        <field name="model">manual.attendance</field>
+        <field name="arch" type="xml">
+                   <form string="Manual Attendance" create="true">
+                <header>
+                    <button name="action_submit" type="object" string="Submit"
+                            class="oe_highlight" states="draft"/>
+                    <button name="action_approve_hod" type="object" string="Approve"
+                            states="hod"
+                            groups="sl_att_request_manual.group_manual_cpl_manager"/>
+                    <button name="action_approve_admin" type="object" string="Approve"
+                            states="admin"
+                            groups="sl_att_request_manual.group_manual_cpl_admin"/>
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,hod,admin,done"/>
+                </header>
+                 <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name_seq"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="employee_id" options="{'no_create': True}" attrs="{'readonly': [('state', '=', 'done')]}"/>/>
+                            <field name="check_in" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="department_id" options="{'no_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                         <field name="manager_id" required="True" readonly="1"/>
+                        </group>
+                      <!--     options="{'no_create': True, 'no_create_edit': True}
+  options="{'no_create': True, 'no_create_edit': True} -->
+                        <group>
+                            <field name="date" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                             <field name="check_out" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                        <field name="coach_id" required="True" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                    <group>
+                        <field name="remarks" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                    </group>
+                        </group>
+                      <notebook>
+
+                        <page string="Signature" name="funds_approval">
+                            <group>
+                                <group>
+                                    <field name="user_id" string="Requested By" readonly="1"/>
+                                   <field name="hod" readonly="1"/>
+                                    <field name="company_id" invisible="1"/>
+                                </group>
+                                <group>
+                                   <field name="approve_admin" readonly="1"/>
+
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="view_manual_attendance_tree" model="ir.ui.view">
+        <field name="name">manual.attendance.tree</field>
+        <field name="model">manual.attendance</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state=='done'"
+                  decoration-danger="state=='cancel'">
+                <field name="name_seq"/>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_manual_attendance" model="ir.actions.act_window">
+        <field name="name">Manual Attendance</field>
+        <field name="res_model">manual.attendance</field>
+        <field name="view_mode">tree,form,activity</field>
+    </record>
+      <menuitem id="menu_emp_manual_attendance_root"
+          name="Attendance Request"
+          parent="hr_attendance.menu_hr_attendance_root"
+          sequence="1"/>
+    <menuitem id="menu_manual_attendance"
+          name="Attendance Request"
+          parent="menu_emp_manual_attendance_root"
+          action="action_manual_attendance"
+          sequence="1"/>
+
+<!--  <menuitem id="menu_manual_attendance"-->
+<!--              name="Attendance Request"-->
+<!--              parent="menu_cpl_request_root"-->
+<!--              action="action_manual_attendance"-->
+<!--              sequence="2"/>-->
+<!--     <record id="hr_employee_search_inherit_birthday" model="ir.ui.view">-->
+<!--    <field name="name">hr.employee.search.inherit.birthday</field>-->
+<!--    <field name="model">hr.employee</field>-->
+<!--    <field name="inherit_id" ref="hr.view_employee_filter"/>-->
+<!--    <field name="arch" type="xml">-->
+<!--        &lt;!&ndash; Insert inside the search view &ndash;&gt;-->
+<!--      <xpath expr="//form/field[@name='name']" position="after">-->
+<!--            &lt;!&ndash; Employee Code field &ndash;&gt;-->
+<!--            <field name="employee_code" string="Employee Code"-->
+<!--                   filter_domain="[('employee_code','ilike',self)]"/>-->
+
+<!--            &lt;!&ndash; Expense Manager field &ndash;&gt;-->
+<!--            <field name="expense_manager_id" string="Expense Manager"/>-->
+<!--        </xpath>-->
+<!--    </field>-->
+
+
+<!--</record>-->
+<!--    <record id="hr_employee_tree_inherit" model="ir.ui.view">-->
+<!--    <field name="name">hr.employee.tree.inherit</field>-->
+<!--    <field name="model">hr.employee</field>-->
+<!--    <field name="inherit_id" ref="hr.view_employee_tree"/>-->
+<!--    <field name="arch" type="xml">-->
+<!--        &lt;!&ndash; Insert after the 'name' column &ndash;&gt;-->
+<!--        <xpath expr="//tree/field[@name='name']" position="after">-->
+<!--            <field name="employee_code" string="Employee Code"/>-->
+<!--            <field name="expense_manager_id" string="Expense Manager"/>-->
+<!--        </xpath>-->
+<!--    </field>-->
+<!--</record>-->
+</odoo>

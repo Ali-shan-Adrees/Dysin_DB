@@ -1,0 +1,9 @@
+<odoo>
+    <record id="hr_attendance_xlsx_report" model="ir.actions.report">
+        <field name="name">Attendance XLSX</field>
+        <field name="model">sl.attendance.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">sl_attendance_posted_report.hr_attendance_xlsx_report</field>
+        <field name="report_file">attendance_report</field>
+    </record>
+</odoo>

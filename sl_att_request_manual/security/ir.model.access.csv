@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_manual_attendance_user,manual.attendance,model_manual_attendance,sl_att_request_manual.group_manual_cpl_user,1,1,1,1

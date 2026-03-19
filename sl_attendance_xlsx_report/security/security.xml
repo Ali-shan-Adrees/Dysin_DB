@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="group_sl_attendance_own_department" model="res.groups">
+        <field name="name">Manager: Manage Team Attendances</field>
+        <field name="category_id" ref="base.module_category_human_resources_attendances"/>
+        <field name="implied_ids" eval="[(4, ref('hr_attendance.group_hr_attendance'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record id="hr_attendance.group_hr_attendance_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('sl_attendance_security.group_sl_attendance_own_department'))]"/>
+    </record>
+
+
+    <record model="ir.rule" id="attendance_team_manager_rule">
+        <field name="name">Attendance: Manager see own department</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="domain_force">[('employee_id.department_id.manager_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('sl_attendance_security.group_sl_attendance_own_department'))]"/>
+    </record>
+
+    <record model="ir.rule" id="attendance_team_manager_draft_rule">
+        <field name="name">Attendance: Manager see own department</field>
+        <field name="model_id" ref="hr_attendance_zktecho.model_hr_draft_attendance"/>
+        <field name="domain_force">[('employee_id.department_id.manager_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('sl_attendance_security.group_sl_attendance_own_department'))]"/>
+    </record>
+
+    <record model="ir.rule" id="attendance_officer_rule">
+        <field name="name">Attendance: Officer can see all</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('hr_attendance.group_hr_attendance_user'))]"/>
+    </record>
+
+    <record model="ir.rule" id="attendance_officer_draft_rule">
+        <field name="name">Attendance: Officer can see all (Draft)</field>
+        <field name="model_id" ref="hr_attendance_zktecho.model_hr_draft_attendance"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('hr_attendance.group_hr_attendance_user'))]"/>
+    </record>
+
+</odoo>

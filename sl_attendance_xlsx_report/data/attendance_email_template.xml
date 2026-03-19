@@ -1,0 +1,16 @@
+<odoo>
+    <data noupdate="1">
+        <record id="attendance_email_template" model="mail.template">
+            <field name="name">Attendance Report Email</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="subject">Attendance Report ({{ ctx.get('start_date') }} - {{ ctx.get('end_date') }})</field>
+            <field name="email_from">${(user.email_formatted or '')|safe}</field>
+            <field name="email_to">${object.work_email}</field>
+            <field name="body_html"><![CDATA[
+                <p>Dear ${object.name},</p>
+                <p>Please find attached your attendance report from <b>${ctx.get('start_date')}</b> to <b>${ctx.get('end_date')}</b>.</p>
+                <p>Regards,<br/>HR Department</p>
+            ]]></field>
+        </record>
+    </data>
+</odoo>

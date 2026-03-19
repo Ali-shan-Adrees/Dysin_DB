@@ -1,0 +1,171 @@
+<template id="my_template" inherit_id="web.assets_frontend">
+    <xpath expr="." position="inside">
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Attendance Xlsx Report</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <div style="text-align:center;margin-top:50px;margin-bottom:10px;background-color: #add8e6;">
+        <h1 style="padding:10px;border:2px solid #ED642B;box-shadow: 0 3px 5px #250c77">Attendance Xlsx Report</h1>
+    </div>
+    <hr style="margin-bottom:70px;height:5px;color:black;"/>
+
+    <h2 style="color:#544B48;padding-left:10px;margin-bottom:70px;">
+       &#11035; This module allows you to Export and manage  attendance data in Excel Report.
+    </h2>
+
+
+    <h1 style="text-align:center;padding:10px;margin-top:50px;margin-bottom:50px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+        Key Features
+    </h1>
+
+    <div style="background-color:#add8e6;color:white;margin-bottom:50px;border-left:5px solid #250c77;padding:10px;box-shadow: 0 3px 5px #250c77;">
+        <h4 >&#9997; Each day is marked with attendance status: P, A,</h4>
+        <h4 >&#9997; Displays name, department, and day-wise attendance in rows.</h4>
+        <h4 >&#9997; Saturdays and Sundays are recognized based on weekday index and marked accordingly (SAT, SUN).</h4>
+        <h4 >&#9997; Integrated with public holiday recognition (PH).</h4>
+        <h4 >&#9997; Excel (XLSX) attendance reporting.</h4>
+        <h4 >&#9997; Supports Any Date Range: Not restricted to a single month – user can define any custom range.</h4>
+    </div>
+
+
+
+
+    <div class="row">
+    <div class="col">
+    <h1 style="text-align:center;padding:10px;margin-top:30px;margin-bottom:30px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+            Wizard with Filters:
+    </h1>
+    <div style="background-color:#add8e6;color:white;height:167px;border-left:5px solid #250c77;padding:10px;box-shadow: 0 1px 3px #250c77;">
+        <h4 >&#9997; Start Date and End Date selection</h4>
+        <h4 >&#9997; Department filter</h4>
+        <h4 >&#9997; Individual Employee filter</h4>
+    </div>
+    </div>
+
+<div class="col">
+    <h1 style="text-align:center;padding:10px;margin-top:30px;margin-bottom:30px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+            Leave Type Names
+        </h1>
+    <div style="background-color:#add8e6;color:white;margin-bottom:30px;border-left:5px solid #250c77;padding:10px;box-shadow: 0 1px 3px #250c77;">
+        <h4 >&#9997; SL → Short Leave</h4>
+        <h4 >&#9997; AL → Annual Leave</h4>
+        <h4 >&#9997; SIL → Sick Leave</h4>
+        <h4 >&#9997; CL → Casual Leave</h4>
+        <h4 >&#9997; CPL → Compensatory Leave</h4>
+        <h4 >&#9997; L → Fallback/default for other types</h4>
+    </div>
+    </div>
+</div>
+
+
+
+    <div class="row">
+    <div class="col">
+    <h1 style="text-align:center;padding:10px;margin-top:30px;margin-bottom:30px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+            Formatted Excel Output:
+    </h1>
+    <div style="background-color:#add8e6;color:white;height:193px;border-left:5px solid #250c77;padding:10px;box-shadow: 0 1px 3px #250c77;">
+        <h4 >&#9997; Bold headers, center alignment, color-coded cells:</h4>
+        <h4 >&#9997; Green → Present</h4>
+        <h4 >&#9997; Red → Absent</h4>
+        <h4 >&#9997; Yellow → Leave</h4>
+        <h4 >&#9997; Grey → Weekend</h4>
+        <h4 >&#9997; Orange → Public Holiday</h4>
+    </div>
+    </div>
+
+
+        <div class="col">
+    <h1 style="text-align:center;padding:10px;margin-top:30px;margin-bottom:30px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+            LEGEND:
+        </h1>
+    <div style="background-color:#add8e6;color:white;margin-bottom:30px;border-left:5px solid #250c77;padding:10px;box-shadow: 0 1px 3px #250c77;">
+        <h4 >&#9997; At the bottom : explains all codes used (P, A, L, SAT, PH, etc.)</h4>
+        <h4 >&#9997; Bold headers, center alignment, color-coded cells:</h4>
+        <h4 >&#9997; Green → Present</h4>
+        <h4 >&#9997; Red → Absent</h4>
+        <h4 >&#9997; Yellow → Leave</h4>
+        <h4 >&#9997; Grey → Weekend</h4>
+        <h4 >&#9997; Orange → Public Holiday</h4>
+    </div>
+    </div>
+</div>
+
+
+<div class="col-md-4">
+    <h1 style="text-align:left;padding:10px;margin-top:30px;margin-bottom:30px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+          Sample Screenshots
+    </h1>
+</div>
+
+    <div class="col-md-3">
+    <h4 style="text-align:left;padding:5px;margin-top:30px;margin-bottom:10px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+            1.Go to Attendance module.
+    </h4>
+        <h4 style="text-align:left;padding:5px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+            2.Click on "Reporting".
+    </h4>
+        <h4 style="text-align:left;padding:5px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+            3.Click on "Attendance Report".
+    </h4>
+</div>
+
+<div style="display: flex; gap: 20px; justify-content: center;margin-bottom:70px">
+    <img src="image1.jpeg" alt="Image 1" style="width: 48%; border-radius: 10px;box-shadow: 0 3px 5px #250c77;">
+    <img  src="image2.jpeg" alt="AImage 2" style="width: 48%; border-radius: 10px;box-shadow: 0 3px 5px #250c77;">
+</div>
+
+    <div class="col-md-6">
+    <h4 style="text-align:left;padding:5px;margin-top:30px;margin-bottom:10px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+            4.Attendance Report wizard will open.
+    </h4>
+        <h4 style="text-align:left;padding:5px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+           5.Select "Start Date","End Date","Department","Employee".
+    </h4>
+        <h4 style="text-align:left;padding:5px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+           6.Then click "Download Excel" button.
+    </h4>
+        <h4 style="text-align:left;padding:5px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+           7.Attendance Report will generate.
+    </h4>
+</div>
+
+<div style="display: flex; gap: 20px; justify-content: center;margin-bottom:70px">
+    <img src="image3.jpeg" alt="Image 3" style="width: 48%; border-radius: 10px;box-shadow: 0 3px 5px #250c77;">
+    <img  src="image4.jpeg" alt="AImage 4" style="width: 48%; border-radius: 10px;box-shadow: 0 3px 5px #250c77;">
+</div>
+
+<div class="col-md-5">
+        <h4 style="text-align:left;padding:5px;color:#ED642B;border-left:5px solid #250c77;box-shadow: 0 3px 5px #250c77;">
+           8.At the end of report,you can see the Legend of Report.
+    </h4>
+</div>
+
+<div style="display: flex; gap: 20px; justify-content:left ;margin-bottom:70px">
+    <img src="image5.jpeg" alt="Image 5" style="width: 48%; border-radius: 10px;box-shadow: 0 3px 5px #250c77;">
+</div>
+
+
+<div style="display: flex; gap: 20px; justify-content:center;text-align:center;color:#544B48;margin-bottom:70px">
+    <h1 style="width: 33%; border-radius: 10px; padding:10px; box-shadow: 0 5px 10px #250c77;">Odoo Support</h1>
+    <h1 style="width: 33%; border-radius: 10px; padding:10px; box-shadow: 0 5px 10px #250c77;">Odoo Customization</h1>
+    <h1 style="width: 33%; border-radius: 10px; padding:10px; box-shadow: 0 5px 10px #250c77;">Odoo Implementation</h1>
+</div>
+
+    <div style="text-align:center">
+    <img src="fb.png" alt="Image 5" style="font-size: 40px; width: 40px; height: 40px;">
+    <img src="yt.png" alt="Image 5" style="font-size: 40px; width: 120px; height: 120px;">
+    <img src="li.png" alt="Image 5" style="font-size: 40px; width: 40px; height: 40px;">
+</div>
+
+
+</body>
+</html>
+</xpath>
+</template>

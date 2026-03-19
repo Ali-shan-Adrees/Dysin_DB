@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="attendance_custom_header_footer">
+        <t t-set="company" t-value="user.company_id"/>
+        <div class="header" style="border:1px  1px 0px 1px solid black;">
+            <div class="row">
+                <div class="col-3" style="text-align:left;padding-left:5px;">
+                    <img t-att-src="'/sl_advance_booking/static/src/img/sinotruk.png'"
+                         alt="Sinotruk" style="width: 80px; height: auto;"/>
+                </div>
+                <div class="col-6" style="text-align: right;">
+                    <div t-field="company.name"
+                         style="text-transform: uppercase; font-size:26px; font-weight: bold;"/>
+                    <div t-field="company.partner_id"
+                         t-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+                    <div >
+                        <strong>Phone : </strong><span style="padding-right: 7px;">
+                            <t t-esc="company.phone or ''"/>
+                        </span>
+                       <strong>Website : </strong> <span style="padding-left: 7px;">
+                            <t t-if="company.website">
+                                <a t-att-href="company.website" target="_blank"
+                                   style="text-decoration: none;">
+                                    <t t-esc="company.website"/>
+                                </a>
+                            </t>
+                        </span>
+                    </div>
+                    <div style="padding: 7px 0px; text-transform: uppercase; border: 1px solid black; font-size: 18px; font-weight: bold;text-align: center;">
+                        <span>Attendance Report</span>
+                    </div>
+
+
+                </div>
+                <div class="col-3" style="text-align:right;">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 80px;"
+                         alt="Logo"/>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4 text-nowrap">
+                    <li t-if="company.phone" class="list-inline-item d-inline">Phone:
+                        <span class="o_force_ltr" t-field="company.phone"/>
+                    </li>
+                    <li t-if="company.email" class="list-inline-item d-inline">Email:
+                        <span t-field="company.email"/>
+                    </li>
+                    <li t-if="company.website" class="list-inline-item d-inline">Web:
+                        <span t-field="company.website"/>
+                    </li>
+                    <li t-if="company.vat" class="list-inline-item d-inline"><t
+                            t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+                        <span t-field="company.vat"/>
+                    </li>
+                </ul>
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page:
+                    <li class="list-inline-item">
+                        <strong>
+                            <span class="page"/>
+                            /
+                            <span class="topage"/>
+                        </strong>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </template>
+
+</odoo>
+

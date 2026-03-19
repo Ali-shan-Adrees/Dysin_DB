@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Wizard Form -->
+    <record id="view_sl_attendance_report_wizard" model="ir.ui.view">
+        <field name="name">sl.attendance.report.wizard.form</field>
+        <field name="model">sl.attendance.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Attendance Report">
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="department_id"/>
+                        <field name="attendance_status"/>
+
+                    </group>
+                    <group>
+                        <field name="end_date"/>
+                        <field name="employee_id"/>
+
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_print_pdf" type="object" string="Print PDF" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard Action -->
+    <record id="action_sl_attendance_report_wizard" model="ir.actions.act_window">
+        <field name="name">Attendance Report</field>
+        <field name="res_model">sl.attendance.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Report Action -->
+    <report
+            id="sl_attendance_report_pdf_action"
+            model="sl.attendance.report.wizard"
+            string="Attendance Report"
+            report_type="qweb-pdf"
+            name="sl_attendance_xlsx_report.attendance_pdf"
+            file="sl_attendance_xlsx_report.attendance_pdf"
+            print_report_name="'Attendance Report - %s' % (object.start_date)"
+    />
+
+    <!-- Menu -->
+    <menuitem id="menu_sl_attendance_report_wizard"
+              name="Attendance Report"
+              parent="hr_attendance.menu_hr_attendance_report"
+              action="action_sl_attendance_report_wizard"
+              sequence="11"/>
+</odoo>

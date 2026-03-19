@@ -1,0 +1,18 @@
+<odoo>
+    <menuitem id="menu_attendance_report_sub"
+              name="Attendance Report"
+              groups="hr_attendance.group_hr_attendance"
+              parent="hr_attendance.menu_hr_attendance_root"
+              action="action_attendance_report_wizard"
+              sequence="20"/>
+
+    <menuitem id="menu_attendance_report"
+              name="Attendance Summary Report"
+              groups="hr_attendance.group_hr_attendance"
+              parent="sl_attendance_xlsx_report.menu_attendance_report_sub"
+              action="action_attendance_report_wizard"
+              sequence="10"/>
+
+
+
+</odoo>

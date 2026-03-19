@@ -1,0 +1,31 @@
+<odoo>
+    <record id="view_purchase_order_excel_wizard" model="ir.ui.view">
+        <field name="name">purchase.order.excel.wizard.form</field>
+        <field name="model">purchase.order.excel.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Order Excel Report">
+                <group>
+                    <group>
+                        <field name="date_from" required="1"/>
+                        <field name="vendor"/>
+
+                    </group>
+                    <group>
+                        <field name="date_to" required="1"/>
+                        <field name="buyer"/>
+
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_export_xlsx"
+                            string="Export Excel"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            special="cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <!-- Commercial -->
+    <record id="seq_purchase_commercial" model="ir.sequence">
+        <field name="name">Purchase Commercial</field>
+        <field name="code">purchase.order.commercial</field>
+        <field name="prefix">PO/COM/ST/%(year)s/%(month)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Corporate -->
+    <record id="seq_purchase_corporate" model="ir.sequence">
+        <field name="name">Purchase Corporate</field>
+        <field name="code">purchase.order.corporate</field>
+        <field name="prefix">PO/COR/ST/%(year)s/%(month)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- CSD -->
+    <record id="seq_purchase_csd" model="ir.sequence">
+        <field name="name">Purchase CSD</field>
+        <field name="code">purchase.order.csd</field>
+        <field name="prefix">PO/CSD/ST/%(year)s/%(month)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Other (Simple) -->
+    <record id="seq_purchase_other" model="ir.sequence">
+        <field name="name">Purchase Other</field>
+        <field name="code">purchase.order.other</field>
+        <field name="prefix">PO</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    </data>
+</odoo>
+
+
+

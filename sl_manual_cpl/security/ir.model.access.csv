@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access.sl.manual.cpl.user,sl.manual.cpl.user,sl_manual_cpl.model_sl_manual_cpl,sl_manual_cpl.group_epm_cpl_user,1,1,1,1

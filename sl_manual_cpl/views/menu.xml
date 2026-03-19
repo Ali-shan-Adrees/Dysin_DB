@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="menu_cpl_request_root"
+              name="Att/ CPL"
+              web_icon="sl_manual_cpl,static/description/icon.png"
+              sequence="10"/>
+<!--    web_icon="outdoor_duty,static/description/icon.png"-->
+
+
+
+</odoo>

@@ -1,0 +1,9 @@
+<odoo>
+    <record id="purchase_order_xlsx_report" model="ir.actions.report">
+        <field name="name">Purchase Order Excel</field>
+        <field name="model">purchase.order.excel.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">sl_purchase_excel.purchase_order_xlsx</field>
+        <field name="report_file">purchase_order_excel</field>
+    </record>
+</odoo>

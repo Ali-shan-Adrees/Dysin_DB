@@ -1,0 +1,19 @@
+<odoo>
+    <record id="action_purchase_order_excel_wizard" model="ir.actions.act_window">
+        <field name="name">Purchase Order Excel Report</field>
+        <field name="res_model">purchase.order.excel.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_purchase_order_excel_report_root"
+              name="Excel Reports"
+              parent="purchase.menu_purchase_root"
+              sequence="1"/>
+
+    <menuitem id="menu_purchase_order_excel_report"
+              name="PO Excel Report"
+              parent="menu_purchase_order_excel_report_root"
+              action="action_purchase_order_excel_wizard"
+              sequence="1"/>
+</odoo>

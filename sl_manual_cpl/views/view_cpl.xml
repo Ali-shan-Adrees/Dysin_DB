@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_emp_manual_cpl_request_form" model="ir.ui.view">
+        <field name="name">employee.sl.manual.cpl.form</field>
+        <field name="model">sl.manual.cpl</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit_user" type="object" string="Submit" class="oe_highlight"
+                            states="draft"
+                    />
+                    <button name="action_approve_hod" type="object" string="Approve" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'hod')]}"
+                            states="hod" groups="sl_manual_cpl.group_emp_cpl_manager"
+                    />
+                    <button name="action_approve_admin" type="object" string="Approve" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'admin')]}"
+                            states="admin" groups="sl_manual_cpl.group_emp_cpl_admin"
+                    />
+                    <button name="action_approve_cancel" type="object" string="Cancel" class="oe_highlight"
+                            states="hod" groups="sl_manual_cpl.group_emp_cpl_admin,sl_manual_cpl.action_approve_hod"
+                    />
+                    
+                    <field name="state" widget="statusbar" nolabel="1"
+                           statusbar_visible="draft,hod,admin,done"/>
+                </header>
+                <sheet>
+
+                    <widget name="web_ribbon" title="Done" bg_color="bg-success"
+                            attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                    <widget name="web_ribbon" title="Cancel" bg_color="bg-danger"
+                            attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name_seq"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" options="{'no_create':True 'no_open': True 'no_edit': True}"/>
+                            <field name="cpl_date"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="department_id"/>
+                            <field name="manager_id"/>
+                            <field name="coach_id" string="Reporting Line"/>
+                        </group>
+                        <label for="remarks" string="Description"/>
+                        <field name="remarks" placeholder="Write here...."/>
+                    </group>
+                    <notebook>
+
+                        <page string="Signature" name="funds_approval">
+                            <group>
+                                <group>
+                                    <field name="user_id"/>
+                                    <field name="hod"/>
+                                </group>
+                                <group>
+                                    <field name="approve_admin"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!--                Chatter-->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_emp_cpl_request_tree" model="ir.ui.view">
+        <field name="name">sl.manual.cpl.tree</field>
+        <field name="model">sl.manual.cpl</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state=='cancel'" decoration-success="state=='done'" sample="1">
+                <field name="date" string="Date"/>
+                <field name="name_seq" string="CPL No"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="manager_id"/>
+                <field name="state"
+                       decoration-danger="state=='cancel'"
+                       decoration-success="state=='done'"
+                       widget="badge"
+                />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_employee_cpl_search" model="ir.ui.view">
+        <field name="name">sl.manual.cpl.search</field>
+        <field name="model">sl.manual.cpl</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name_seq" filter_domain="['|','|',('name_seq','ilike',self),('employee_id','ilike',self),
+                                                ('department_id','ilike',self)]"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <filter name="filter_draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="filter_hod" string="HOD" domain="[('state','=','hod')]"/>
+                <filter name="filter_done" string="Done" domain="[('state','=','done')]"/>
+                <filter name="filter_cancel" string="Cancel" domain="[('state','=','cancel')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_by_status" context="{'group_by':'state'}"/>
+                    <filter string="Employee" name="group_by_employee" context="{'group_by':'employee_id'}"/>
+                    <filter string="Department" name="group_by_department" context="{'group_by':'department_id'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_emp_manual_cpl_view" model="ir.actions.act_window">
+        <field name="name">CPL Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sl.manual.cpl</field>
+        <field name="view_mode">tree,kanban,form,pivot,graph,activity</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new CPL Request, the first step of a new request!
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="menu_emp_man_cpl"
+              name="CPL"
+              parent="menu_cpl_request_root"
+              sequence="1"/>
+
+    <menuitem id="menu_emp_manual_cpl"
+              name="CPL"
+              action="action_emp_manual_cpl_view"
+              parent="menu_emp_man_cpl"
+              sequence="1"/>
+</odoo>

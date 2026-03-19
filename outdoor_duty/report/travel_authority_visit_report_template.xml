@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="visit_report_travel_authority">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                     t-att-data-oe-id="o and o.id">
+                    <t t-call="outdoor_duty.custom_header_footer_for_ta"/>
+                    <!--                <t t-call="web.external_layout">-->
+                    <div class="page">
+
+                        <table class="table table-condensed" style="border: 2px solid black;">
+                            <tbody>
+                                <tr style="text-align: left;">
+                                    <th>Name</th>
+                                    <td>
+                                        <span t-field="o.employee_id"/>
+                                    </td>
+                                    <th>Department</th>
+                                    <td>
+                                        <span t-field="o.department_id"/>
+                                    </td>
+                                    <th>TA No</th>
+                                    <td>
+                                        <span t-field="o.name_seq"/>
+                                    </td>
+                                </tr>
+                                <tr style="text-align: left;">
+                                    <th colspan="2">Team Members</th>
+                                    <td colspan="4">
+                                        <span t-field="o.team"/>
+                                    </td>
+
+
+                                </tr>
+                                <tr style="text-align: left;">
+                                    <th>Designation</th>
+                                    <td>
+                                        <span t-field="o.job_id"/>
+                                    </td>
+                                    <th>Employee No</th>
+                                    <td>
+                                        <span t-field="o.emp_no"/>
+                                    </td>
+                                    <th>Date</th>
+                                    <td>
+                                        <span t-field="o.date"/>
+                                    </td>
+                                </tr>
+                                <tr style="text-align: left;">
+                                    <th colspan="1">Purpose of visit</th>
+                                    <td colspan="1">
+                                        <span t-field="o.purpose"/>
+                                    </td>
+                                    <th colspan="2">Visit Location</th>
+                                    <td colspan="2">
+                                        <span t-field="o.visit_location"/>
+                                    </td>
+                                </tr>
+                                <tr style="text-align: left;">
+                                    <th colspan="2">Customer</th>
+                                    <td colspan="4">
+                                        <span t-field="o.partner_id"/>
+                                    </td>
+                                </tr>
+                                <tr style="text-align: left;">
+                                    <th colspan="6">Details</th>
+                                </tr>
+                                <tr style="text-align: left;">
+                                    <th colspan="1">Visit Status</th>
+                                    <th colspan="1">Customer</th>
+                                    <th colspan="4">Visit Details</th>
+                                </tr>
+                                <t t-foreach="o.outdoor_duty_ids" t-as="line">
+                                    <tr style="text-align: left;">
+                                        <td colspan="1">
+                                            <span t-field="line.visit_type"/>
+                                        </td>
+                                        <td colspan="1">
+                                            <span t-field="line.lead_id"/>
+                                        </td>
+                                        <td colspan="4">
+                                            <span t-field="line.description"/>
+                                        </td>
+
+                                    </tr>
+
+                                </t>
+
+
+                            </tbody>
+                        </table>
+                        <br/>
+                        <br/>
+
+                        <br/>
+                        <br/>
+                         <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-4">
+                                    <span t-field="o.user_id" />
+                                    <br/>
+                                    <span style="border-top : 1px solid black;">Prepared By</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

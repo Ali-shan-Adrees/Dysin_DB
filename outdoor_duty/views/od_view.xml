@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_od_request_form" model="ir.ui.view">
+        <field name="name">od.request.form</field>
+        <field name="model">outdoor.duty</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit_user" type="object" string="Submit" class="oe_highlight"
+                            confirm="Are you sure to send for approval"
+                            states="draft"
+                    />
+                    <button name="action_approved_by_sub_hod" type="object" string="Approve" class="oe_highlight"
+                            confirm="Are you sure to approve This request ?"
+                            attrs="{'invisible': [('state', '!=', 'subhod')]}"
+                            states="subhod" groups="outdoor_duty.group_sub_hod"
+                    />
+                    <button name="action_approved_by_hod" type="object" string="Approve" class="oe_highlight"
+                            confirm="Are you sure to approve This request ?"
+                            attrs="{'invisible': [('state', '!=', 'in_progress')]}"
+                            states="in_progress" groups="outdoor_duty.group_od_manager"
+                    />
+                    <button name="action_done_admin" type="object" string="Mark as done" class="oe_highlight"
+                            confirm="Are you sure want to mark as done ?"
+                            attrs="{'invisible': [('state', '!=', 'admin')]}"
+                            states="admin" groups="outdoor_duty.group_od_admin, outdoor_duty.group_od_regional_admin"
+                    />
+                    <button name="action_reset_draft" type="object" string="Reset Draft" class="oe_highlight"
+                            confirm="Are you sure want to reset to draft ?" states="cancel" groups="outdoor_duty.group_od_administrator"
+                    />
+                    <button name="action_cancel" type="object" string="Cancel" class="oe_highlight"
+                            confirm="Are you sure want to cancel ?" 
+                    />
+                    <button name="action_audit_process" type="object" string="Audit" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'done')]}"
+                            confirm="Are you sure your audit process is completed" states="done" groups="outdoor_duty.group_travel_authority_audit"
+                    />
+                    <button name="action_for_report" type="object" string="Add A Report" class="oe_highlight"/>
+                    <button name="visited_report_action" type="object" string="Print Report" class="oe_highlight"
+                    attrs="{'invisible': [('report_status', '!=', True)]}"/>
+
+
+                    <field name="state" widget="statusbar" nolabel="1"
+                           statusbar_visible="draft,subhod,in_progress,admin,done,cancel"/>
+                </header>
+                <sheet>
+                      <widget name="web_ribbon" title="Done" bg_color="bg-success"
+                              attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                     <widget name="web_ribbon" title="Cancel" bg_color="bg-danger"
+                              attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+
+
+
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name_seq"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                            <field name="team" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True}"/>
+                            <field name="coach_id"/>
+                            <field name="job_no"/>
+                            <field name="purpose"/>
+                            <field name="travelling_date"/>
+                            <field name="expected_arrival_date"/>
+                            <field name="travel_from"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="department_id"/>
+                            <field name="manager_id"/>
+                            <field name="job_id"/>
+                            <field name="emp_no"/>
+                            <field name="work_email" string="Email"/>
+                            <field name="work_location"/>
+                            <field name="audit_status" />
+                            
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Vehicle Requirement" name="vehicle_requirement">
+                            <group>
+                                <group>
+                                    <field name="vehicle"/>
+                                    <field name="destination"/>
+                                    <field name="date_required"/>
+                                </group>
+                                <group>
+                                    <field name="vehicle_retained"/>
+                                    <field name="vehicle_not_retained"/>
+                                    <field name="arrival_date"/>
+
+                                </group>
+
+                            </group>
+
+                        </page>
+                        <page string="Admin" name="admin" groups="outdoor_duty.group_od_admin,outdoor_duty.group_od_administrator">
+                            <group>
+                                <group>
+                                    <field name="vehicle_no"/>
+                                    <field name="m_reading_out"/>
+                                    <field name="out_time"/>
+
+                                </group>
+                                <group>
+                                    <field name="driver"/>
+                                    <field name="m_reading_in"/>
+                                    <field name="in_time"/>
+                                    <field name="total_duration"/>
+                                </group>
+                            </group>
+
+
+                        </page>
+                        <page string="Other Info" name="other_info">
+                            <group>
+                                <group>
+                                    <field name="user_id"/>
+                                    <field name="company_id"/>
+                                    <field name="free_of_cost" widget="radio" options="{'horizontal': true}"/>
+                                </group>
+                                <group>
+                                    <field name="claim" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="invoice_to_customer" widget="radio" options="{'horizontal': true}"/>
+                                </group>
+                            </group>
+
+                        </page>
+                        <page string="Signature" name="signature">
+                             <group>
+                                <group>
+                                    <field name="user_id"/>
+                                    <field name="company_id"/>
+                                    <field name="claim_status"/>
+
+                                </group>
+                                <group>
+                                    <field name="hod"/>
+                                    <field name="admin"/>
+                                    <field name="report_status"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Meter Readin Attachment" name="reading_attachment">
+                             <group>
+                                <group>
+                                    <field name="attachment_out" widget="image" class="oe_avatar m-0"
+                                           options="{'zoom': true}"
+                                    />
+
+                                </group>
+                                  <group>
+                                    <field name="attachment_in" widget="image" class="oe_avatar m-0"
+                                           options="{'zoom': true}"/>
+                                </group>
+
+                            </group>
+                        </page>
+                        <page string="Visit Report" name="od_visit_report">
+                             <field name="outdoor_duty_ids">
+                                <tree editable="bottom" delete="1">
+                                    <field name="partner_id"/>
+                                    <field name="sales_team"/>
+                                    <field name="lead_id"/>
+                                    <field name="visit_type"/>
+                                    <field name="outdoor_duty_id"/>
+                                    <field name="visit_date"/>
+                                    <field name="visit_end_date"/>
+                                    <field name="description"/>
+
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group>
+
+                        <field name="narration"  placeholder="Write here description"/>
+
+                    </group>
+                </sheet>
+                <!--                Chatter-->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_od_request_tree" model="ir.ui.view">
+        <field name="name">od.request.tree</field>
+        <field name="model">outdoor.duty</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state=='cancel'" decoration-info="state=='in_progress'" decoration-success="state=='done'" sample="1" >
+                <field name="date" string="Date"/>
+                <field name="name_seq" string="OD No"/>
+                <field name="employee_id"/>
+                <field name="team" widget="many2many_tags"/>
+                <field name="job_no"/>
+                <field name="work_location"/>
+                <field name="purpose"/>
+                <field name="audit_status" />
+
+                <field name="state"
+                       decoration-danger="state=='cancel'"
+                       decoration-info="state=='in_progress'"
+                       decoration-success="state=='done'"
+                       widget="badge"
+                />
+                <field name="report_status"/>
+                 <button name="visited_report_action" type="object" attrs ="{'invisible':[('report_status','=', False)]}"  class="fa fa-print btn-success"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hr_outdoor_duties_multi_confirm_action" model="ir.actions.server">
+        <field name="name">Confirm ODs</field>
+        <field name="model_id" ref="outdoor_duty.model_outdoor_duty"/>
+        <field name="binding_model_id" ref="outdoor_duty.model_outdoor_duty"/>
+        <field name="state">code</field>
+        <field name="code">records.confirm_multi_outdoorduties()</field>
+    </record>
+     <record id="view_od_request_search" model="ir.ui.view">
+        <field name="name">od.request.search</field>
+        <field name="model">outdoor.duty</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name_seq" string="OD No" filter_domain="['|','|','|','|',('name_seq','ilike',self),('employee_id','ilike',self),
+                                                 ('job_no','ilike',self),('emp_no','ilike',self),('department_id','ilike',self)]"/>
+                <field name="employee_id" />
+                <field name="job_no" />
+                <field name="emp_no" />
+                <field name="department_id" />
+                <filter name="filter_draft" string="Draft" domain="[('state','=','draft')]" />
+                <filter name="filter_inprogress" string="HOD" domain="[('state','=','in_progress')]" />
+                <filter name="filter_in_admin" string="Admin" domain="[('state','=','admin')]" />
+                <filter name="filter_done" string="Done" domain="[('state','=','done')]" />
+                <filter name="filter_cancel" string="Cancel" domain="[('state','=','cancel')]" />
+
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_by_status" context="{'group_by':'state'}"/>
+                     <filter string="Employee" name="group_by_status" context="{'group_by':'employee_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="tree_outdoor_duty_visit_report" model="ir.ui.view">
+        <field name="name">od.visit.report.line.tree</field>
+        <field name="model">od.visit.report.line</field>
+        <field name="arch" type="xml">
+            <tree sample="1" >
+                <field name="partner_id" string="Sales Person"/>
+                <field name="sales_team" string="Team"/>
+                <field name="lead_id" string="Customer"/>
+                <field name="outdoor_duty_id" string="OD"/>
+                <field name="visit_date"/>
+                <field name="visit_end_date" />
+                <field name="visit_type" />
+                <field name="description"/>
+              </tree>
+        </field>
+    </record>
+
+    <record id="action_od_request_view" model="ir.actions.act_window">
+        <field name="name">Od Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">outdoor.duty</field>
+        <field name="view_mode">tree,kanban,form,pivot,graph,activity</field>
+
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new OD, the first step of a new outdoor request!
+            </p>
+        </field>
+    </record>
+    <record id="action_od_request_view_report" model="ir.actions.act_window">
+        <field name="name">OD Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.visit.report.line</field>
+        <field name="view_mode">tree,pivot,graph</field>
+
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new OD, the first step of a new outdoor request!
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="menu_od_request"
+              name="Outdoor Duty"
+              parent="menu_od_request_root"
+              sequence="1"/>
+
+    <menuitem id="menu_outdoor"
+              name="OD Request"
+              action="action_od_request_view"
+              parent="menu_od_request"
+              sequence="1"/>
+     <menuitem id="menu_outdoor_report"
+              name="Report"
+              action="action_od_request_view_report"
+              parent="menu_od_request_root"
+              sequence="2"/>
+</odoo>

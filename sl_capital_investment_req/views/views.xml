@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="view_sl_capital_investment_form" model="ir.ui.view">
+		<field name="name">sl.capital.investment.form</field>
+		<field name="model">sl.capital.investment</field>
+		<field name="arch" type="xml">
+			<form string="CIR">
+			  <header>
+				<button name="action_submit"
+						string="Submit"
+						type="object"
+						states="draft"/>
+				<button name="action_dept_head_approve"
+						string="Approve"
+						type="object"
+						states="dept_head"
+						groups="sl_capital_investment_req.group_cir_hod"/>
+				<button name="action_cfo_approve"
+						string="CFO Approve"
+						type="object"
+						states="cfo"
+						groups="sl_capital_investment_req.group_cir_cfo"/>
+				<button name="action_ceo_approve"
+						string="CEO Approve"
+						type="object"
+						states="ceo"
+						groups="sl_capital_investment_req.group_cir_hr"/>
+				<button name="action_reject"
+						string="Reject"
+						type="object"
+						states="dept_head,cfo,ceo"
+						groups="sl_capital_investment_req.group_cir_hod,
+								sl_capital_investment_req.group_cir_cfo,
+								sl_capital_investment_req.group_cir_hr"/>
+				<field name="state" widget="statusbar"
+					   statusbar_visible="draft,dept_head,cfo,ceo,approved,rejected"/>
+			</header>
+				<sheet>
+					<div class="oe_title">
+						<h1>
+							<field name="name" readonly="1"/>
+						</h1>
+					</div>
+					<group>
+						<group>
+<!--		<field name="department_admin_id" readonly="1" colspan="2"/>-->
+							<field name="ba_bsd" colspan="2"/>
+							<field name="project" colspan="2"/>
+						</group>
+						<group>
+							<field name="date"/>
+						</group>
+						<group string="Description">
+							<group>
+								<field name="is_addition"/>
+								<field name="is_replacement"/>
+							</group>
+							<group>
+								<field name="is_expansion"/>
+								<field name="is_modernization"/>
+							</group>
+						</group>
+						<group string="Asset Category">
+							<group>
+								<field name="is_land_building"/>
+								<field name="is_plant_equipment"/>
+								<field name="is_office_equipment"/>
+							</group>
+							<group>
+								<field name="is_vehicle"/>
+								<field name="is_furniture"/>
+								<field name="is_tools"/>
+							</group>
+						</group>
+						<group>
+							<field name="item_des"/>
+							<field name="item_type"/>
+							<field name="model"/>
+						</group>
+						<group string="Source">
+							<field name="local"/>
+							<field name="imported"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Cost Details">
+							<group>
+								<group>
+									<field name="estimated_cost"/>
+									<field name="resale_value"/>
+									<field name="net_cost"/>
+								</group>
+								<group>
+									<field name="depreciation_years"/>
+									<field name="cost_per_annum"/>
+								</group>
+
+							</group>
+						</page>
+						<page string="Justification">
+							<group>
+								<field name="is_new_business"/>
+								<field name="is_cost_saving"/>
+								<field name="is_system_improvement"/>
+							</group>
+							<group>
+								<field name="is_others"/>
+								<field name="is_higher_productivity"/>
+							</group>
+						</page>
+						<page string="Budget Info">
+							<group>
+								<field name="budget_reference" colspan="1"/>
+								<field name="budget_status" colspan="1"/>
+							</group>
+							<group string="Budget Analysis">
+								<field name="capex_budget" colspan="1"/>
+								<field name="approved_to_date" colspan="1"/>
+								<field name="capex_budget" colspan="1"/>
+								<field name="available_balance" colspan="1"/>
+								<field name="this_cir" colspan="1"/>
+								<field name="remaining_balance" colspan="1"/>
+							</group>
+						</page>
+						<page string="Approval">
+							<group>
+								<group string="Originating BA/BSD">
+									<field name="user_id" string="CIR Originator" readonly="1"/>
+<!--									<field name="dep_head"/>-->
+									<field name="department_admin_id"/>
+									<field name="ba_bsd_fc"/>
+									<field name="ba_bsd_head"/>
+								</group>
+								<group string="Review And Approval">
+                                    <group string="CFO">
+                                        <field name="aprove_cfo" readonly="1"  groups="sl_capital_investment_req.group_cir_cfo"/>
+                                        <field name="not_aprove_cfo" readonly="1"  groups="sl_capital_investment_req.group_cir_cfo"/>
+                                        <field name="cfo_approved_by" readonly="1"/>
+                                        <field name="cfo_approved_date" readonly="1"/>
+                                    </group>
+                                    <group string="CEO">
+                                        <field name="aprove_ceo" readonly="1" groups="sl_capital_investment_req.group_cir_hr"/>
+                                        <field name="not_aprove_ceo" readonly="1" groups="sl_capital_investment_req.group_cir_hr"/>
+                                        <field name="ceo_approved_by" readonly="1"/>
+                                        <field name="ceo_approved_date" readonly="1"/>
+                                    </group>
+                                </group>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_sl_capital_investment_tree" model="ir.ui.view">
+		<field name="name">sl.capital.investment.tree</field>
+		<field name="model">sl.capital.investment</field>
+		<field name="arch" type="xml">
+			<tree string="CIR">
+				<field name="name" readonly="1"/>
+				<field name="ba_bsd"/>
+				<field name="project"/>
+				<field name="date"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_sl_capital_investment" model="ir.actions.act_window">
+		<field name="name">Capital Investment Request</field>
+		<field name="res_model">sl.capital.investment</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	<menuitem id="menu_sl_capital_root"
+			  name="CIR"
+			  web_icon="sl_capital_investment_req,static/description/icon.png"
+			  sequence="7"/>
+	<menuitem id="menu_sl_capital"
+			  name="CIR"
+			  parent="menu_sl_capital_root"
+			  action="action_sl_capital_investment"
+			  sequence="1"/>
+</odoo>

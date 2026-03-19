@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="travel_authority_report_update" model="ir.ui.view">
+            <field name="name">attach.report.wizards.form</field>
+            <field name="model">attach.report.wizards</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="visit_type"/>
+                            <field name="od_ref"/>
+                            <field name="visit_date"/>
+                            <field name="lead_id" attrs="{'required': [('visit_team', '=', '1')], 'invisible': [('visit_team', '!=', '1')]}"/>
+                        </group>
+                        <group>
+                            <field name="visit_team" widget="radio" options="{'horizontal': True}"/>
+                            <field name="sales_team" invisible="1"/>
+                            <field name="partner_id"/>
+                            <field name="ta_ref"/>
+                            <field name="visit_end_date"/>
+                        </group>
+                        <field name="disccription" placeholder="Write here Visit report summary"/>
+                    </group>
+
+                    <footer>
+                        <button string="Submit" type="object" name="submit_visit_report" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel" class="btn btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="after_visit_report" model="ir.actions.act_window">
+            <field name="name">Visit Report</field>
+            <field name="res_model">attach.report.wizards</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_lead_id': active_id}</field>
+        </record>
+
+    </data>
+</odoo>

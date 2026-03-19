@@ -1,0 +1,10 @@
+<odoo>
+    <record id="short_leave_type" model="hr.leave.type">
+        <field name="name">Short Leave</field>
+        <field name="code">short_leave</field>
+        <field name="allocation_type">fixed</field>
+        <field name="leave_validation_type">manager</field>
+        <field name="time_type">leave</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

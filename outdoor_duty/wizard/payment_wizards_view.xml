@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="payment_wizards_view" model="ir.ui.view">
+            <field name="name">payment.wizards.form</field>
+            <field name="model">pay.amount.wizards</field>
+            <field name="arch" type="xml">
+                <form string="Payment">
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="debit_account_id"/>
+                            <field name="journal_id"/>
+
+                        </group>
+                        <group>
+                             <field name="amount"/>
+                            <field name="credit_account_id"/>
+
+                            <field name="reference"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Submit" type="object" name="submitted_payment" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel" class="btn btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="after_visit_report" model="ir.actions.act_window">
+            <field name="name">Visit Report</field>
+            <field name="res_model">attach.report.wizards</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+
+        </record>
+    </data>
+</odoo>

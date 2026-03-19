@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_travel_authority_form" model="ir.ui.view">
+        <field name="name">travel.authority.form</field>
+        <field name="model">travel.authority</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submitted" type="object" string="Send" class="oe_highlight"
+                            confirm="Are you sure to send for approval"
+                            states="draft"
+                    />
+                    <button name="action_sub_hod" type="object" string="Approve" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'subhod')]}"
+                            states="subhod" groups="outdoor_duty.group_sub_hod"
+                    />
+                    <button name="action_approved_by_hod" type="object" string="Approve" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'hod')]}"
+                            states="hod" groups="outdoor_duty.group_od_manager"
+                    />
+                    <button name="action_approved_by_audit" type="object" string="Approve" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'audit')]}"
+                            states="audit" groups="outdoor_duty.group_travel_authority_audit"
+                    />
+                    <button name="action_approved_by_cfo" type="object" string="Approve" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'cfo')]}"
+                            states="cfo" groups="outdoor_duty.group_travel_authority_cfo"
+                    />
+                    <button name="action_reset_draft" type="object" string="Reset Draft" class="oe_highlight"
+                            confirm="Are you sure want to reset to draft ?" states="cancel"
+                    />
+                    <button name="action_cancel" type="object" string="Cancel" class="oe_highlight"
+                            confirm="Are you sure want to mark as done ?"
+                            attrs="{'invisible': [('state', '=', 'done')]}"
+                    />
+                    <button name="action_for_travel_authority_report" type="object" string="Add A Report" class="oe_highlight"
+                    />
+                    <button name="visited_report_action" type="object" string="Print Report" class="oe_highlight"/>
+                    <button name="pay_now_amount" states="done" type="object" string="Pay now" class="oe_highlight"
+                    groups="outdoor_duty.group_ta_finance" attrs ="{'invisible':[('state','!=', 'done')]}" />
+
+                    <field name="state" widget="statusbar" nolabel="1"
+                           statusbar_visible="draft,subhod,hod,audit,cfo,done,cancel"/>
+                </header>
+                <sheet>
+                     <widget name="web_ribbon" title="Done" bg_color="bg-success"
+                              attrs="{'invisible': [('state', '!=', 'done')]}"/>
+
+                    <widget name="web_ribbon" title="Cancel" bg_color="bg-danger"
+                              attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name_seq"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="job_id"/>
+                            <field name="emp_no"/>
+                            <field name="purpose"/>
+                            <field name="visit_location"/>
+                            <field name="travel_route"/>
+                            <field name="departure"/>
+                            <field name="travel_from"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="department_id"/>
+                            <field name="manager_id"/>
+                            <field name="coach_id"/>
+                            <field name="team" widget="many2many_tags" options="{'no_create':True}" />
+                            <field name="partner_id"/>
+                            <field name="arrival"/>
+                            <field name="travel_mode"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="expense_types_line" string="Estimated Expense">
+                            <field name="expense_line_ids">
+                                <tree editable="bottom" delete="1">
+                                    <field name="expense_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                                    <field name="descript"/>
+                                    <field name="days"/>
+                                    <field name="rate"/>
+                                    <field name="sub_total"/>
+                                </tree>
+
+                            </field>
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                            <group colspan="4">
+<!--                                <field colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>-->
+                            </group>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                <field name="total" colspan="2" readonly="1"/>
+                                <field name="paid_amount" colspan="2" readonly="1"/>
+                            </group>
+                            <div class="clearfix"/>
+                        </group>
+                        </page>
+
+                        <page name="other_ino" string="Other Information">
+                            <group>
+                                <group>
+                                    <field name="user_id"/>
+                                    <field name="audit_status"/>
+                                    <field name="payment_id"/>
+                                </group>
+                                <group>
+                                    <field name="hod"/>
+                                    <field name="audit"/>
+                                    <field name="cfo"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Visit Report" name="od_visit_report">
+                             <field name="travel_authority_report_ids">
+                                <tree editable="bottom" delete="1">
+                                    <field name="partner_id"/>
+                                    <field name="sales_team"/>
+                                    <field name="visit_type"/>
+                                    <field name="travel_authority_id"/>
+                                    <field name="visit_date"/>
+                                    <field name="visit_end_date"/>
+                                    <field name="description"/>
+
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+                    <group>
+                        <field name="narration" placeholder="Write here description"/>
+                    </group>
+                </sheet>
+                <!--                Chatter-->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+     <record id="view_travel_authority_tree" model="ir.ui.view">
+        <field name="name">travel.authority.tree</field>
+        <field name="model">travel.authority</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state=='cancel'" decoration-info="state=='hod'" decoration-success="state=='done'" sample="1" >
+                <field name="date" string="Date"/>
+                <field name="name_seq" string="TA No"/>
+                <field name="employee_id"/>
+                <field name="team" widget="many2many_tags"/>
+                <field name="departure"/>
+                <field name="partner_id" />
+                <field name="travel_mode"/>
+                <field name="total" string="Requested amount"/>
+                <field name="paid_amount"/>
+                <field name="state"
+                       decoration-danger="state=='cancel'"
+                       decoration-info="state=='hod'"
+                       decoration-success="state=='done'"
+                       widget="badge"
+                />
+                <field name="report_status"/>
+                <field name="audit_status"/>
+                <button name="visited_report_action" type="object" attrs ="{'invisible':[('report_status','=', False)]}"  class="fa fa-print btn-success"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_travel_authority_search" model="ir.ui.view">
+        <field name="name">travel.authority.search</field>
+        <field name="model">travel.authority</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name_seq" string="TA No" filter_domain="['|','|','|','|',('name_seq','ilike',self),('employee_id','ilike',self),
+                                                 ('partner_id','ilike',self),('travel_mode','ilike',self),('department_id','ilike',self)]"/>
+                <field name="employee_id" />
+                <field name="partner_id" />
+                <field name="travel_mode" />
+                <field name="department_id" />
+                <filter name="filter_draft" string="Draft" domain="[('state','=','draft')]" />
+                <filter name="filter_in_hod" string="Approved" domain="[('state','=','hod')]" />
+                <filter name="filter_done" string="Done" domain="[('state','=','done')]" />
+                <filter name="filter_cancel" string="Cancel" domain="[('state','=','cancel')]" />
+
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_by_status" context="{'group_by':'state'}"/>
+                     <filter string="Employee" name="group_by_employee" context="{'group_by':'employee_id'}"/>
+                     <filter string="Customer" name="group_by_partner" context="{'group_by':'partner_id'}"/>
+                     <filter string="Departure Date" name="group_by_departure" context="{'group_by':'departure'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="tree_travel_authority_visit_report" model="ir.ui.view">
+        <field name="name">ta.visit.report.line.tree</field>
+        <field name="model">ta.visit.report.line</field>
+        <field name="arch" type="xml">
+            <tree sample="1" >
+                <field name="partner_id" string="Sales Person"/>
+                <field name="sales_team" string="Team"/>
+                <field name="travel_authority_id" string="T.A"/>
+                <field name="visit_date"/>
+                <field name="visit_end_date" />
+                <field name="visit_type" />
+                <field name="description"/>
+
+<!--                <button name="visited_report_action" type="object" attrs ="{'invisible':[('report_status','=', False)]}"  class="fa fa-print btn-success"/>-->
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record id="view_expense_type_form" model="ir.ui.view">
+        <field name="name">expense.types.form</field>
+        <field name="model">expense.types</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group></group>
+                    </group>
+
+                </sheet>
+                <!--                Chatter-->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_travel_authority_view" model="ir.actions.act_window">
+        <field name="name">Travel Authority</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">travel.authority</field>
+        <field name="view_mode">tree,kanban,form,pivot,graph,activity</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Travel Authority, the first step of a new Travel Authority request!
+            </p>
+        </field>
+    </record>
+    <record id="action_travel_expense_type_view" model="ir.actions.act_window">
+        <field name="name">Travel Authority</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">expense.types</field>
+        <field name="view_mode">tree,kanban,form,pivot,graph,activity</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Expense type, the first step of a new Travel expense type!
+            </p>
+        </field>
+    </record>
+    <record id="action_travel_report_view" model="ir.actions.act_window">
+        <field name="name">Travel Authority Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ta.visit.report.line</field>
+        <field name="view_mode">tree,pivot,graph,activity</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Expense type, the first step of a new Travel expense type!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_travel_authority"
+              name="Travel Authority"
+              parent="menu_travel_authority_request_root"
+              sequence="1"/>
+    <menuitem id="menu_travel_authority_action"
+              name="Travel Authority"
+              action="action_travel_authority_view"
+              parent="menu_travel_authority"
+              sequence="1"/>
+    <menuitem id="menu_travel_authority_report_action"
+              name="Report"
+              action="action_travel_report_view"
+              parent="menu_travel_authority_request_root"
+              sequence="1"/>
+    <menuitem id="menu_od_request_conf"
+              name="Configuration"
+              parent="menu_travel_authority_request_root"
+              sequence="2"/>
+    <menuitem id="menu_travel_authority_expense"
+              name="Expense Type"
+              action="action_travel_expense_type_view"
+              parent="menu_od_request_conf"
+              sequence="2"/>
+</odoo>

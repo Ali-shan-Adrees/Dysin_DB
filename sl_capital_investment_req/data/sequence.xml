@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <data>
+        <record id="seq_capital_investment" model="ir.sequence">
+            <field name="name">Capital Investment Request</field>
+            <field name="code">sl.capital.investment</field>
+            <field name="prefix">CIR/</field>
+            <field name="padding">5</field>
+        </record>
+     </data>
+</odoo>

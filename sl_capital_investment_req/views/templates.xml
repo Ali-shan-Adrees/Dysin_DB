@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<report
+			id="action_report_capital_investment"
+			model="sl.capital.investment"
+			string="CIR"
+			report_type="qweb-pdf"
+			name="sl_capital_investment_req.report_capital_investment"
+			file="sl_capital_investment_req.report_capital_investment"
+			print_report_name="'CIR - %s' % (object.name)"
+	/>
+
+	<template id="report_capital_investment">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout"> <style>
+				.pt-5 {
+					padding-top: 0 !important;
+				}
+					.page { margin-top: 0 !important; padding-top: 0 !important; }
+				</style>
+					<div class="page" style="font-size: 11px; padding: 0px;">
+						<table style="width:100%; border-collapse:collapse; margin-bottom:6px;">
+							<tr>
+								<td style="width:20%; border:2px solid #000; padding:10px; text-align:center; vertical-align:middle;">
+									<div style="font-size:20px;  font-weight:bold; letter-spacing:3px;">DYSIN</div>
+									<div style="font-size:9px;  letter-spacing:2px;">AUTOMOBILES</div>
+								</td>
+								<td style="width:60%; border:2px solid #000; padding:10px; text-align:center; vertical-align:middle;">
+									<div style="font-size:17px; font-weight:bold; line-height:1.5;">
+										CAPITAL<br/>INVESTMENT<br/>REQUEST
+									</div>
+								</td>
+								<td style="width:20%; border:2px solid #000; padding:10px; vertical-align:center;">
+									<div style="font-size:20px; font-weight:bold; letter-spacing:3px;"/>
+									<div style="font-size:9px; letter-spacing:2px;"/>
+								</td>
+							</tr>
+						</table>
+
+						<table style="width:100%; border-collapse:collapse; margin-bottom:6px;">
+							<tr>
+								<td style="width:12%; border:1px solid #000; padding:5px;">
+									<strong>BA/BSD:</strong>
+								</td>
+								<td style="width:38%; border:1px solid #000; padding:5px;">
+									<span t-field="o.ba_bsd"/>
+								</td>
+								<td style="width:12%; border:1px solid #000; padding:5px;">
+									<strong>CIR NO.:</strong>
+								</td>
+								<td style="width:38%; border:1px solid #000; padding:5px;">
+									<span t-field="o.name"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="border:1px solid #000; padding:5px;">
+									<strong>PROJECT:</strong>
+								</td>
+								<td style="border:1px solid #000; padding:5px;">
+									<span t-field="o.project"/>
+								</td>
+								<td style="border:1px solid #000; padding:5px;">
+									<strong>DATE:</strong>
+								</td>
+								<td style="border:1px solid #000; padding:5px;">
+									<span t-field="o.date"/>
+								</td>
+							</tr>
+						</table>
+
+						<!-- ===== DESCRIPTION + ASSET CATEGORY (side by side) ===== -->
+						<table style="width:100%; border-collapse:collapse; margin-bottom:6px;">
+							<tr>
+								<!-- DESCRIPTION -->
+								<td style="width:50%; border:1px solid #000; padding:6px; vertical-align:top;">
+									<strong>DESCRIPTION:</strong>
+									<br/>
+									<br/>
+									<table style="width:100%; font-size:11px;">
+										<tr>
+											<td style="width:50%; padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_addition">&#10003;</t>
+												</span>
+												Addition
+											</td>
+											<td style="width:50%; padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_expansion">&#10003;</t>
+												</span>
+												Expansion
+											</td>
+										</tr>
+										<tr>
+											<td style="padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_replacement">&#10003;</t>
+												</span>
+												Replacement
+											</td>
+											<td style="padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_modernization">&#10003;</t>
+												</span>
+												Modernization
+											</td>
+										</tr>
+									</table>
+								</td>
+								<!-- ASSET CATEGORY -->
+								<td style="width:50%; border:1px solid #000; padding:6px; vertical-align:top;">
+									<strong>ASSET CATEGORY:</strong>
+									<br/>
+									<br/>
+									<table style="width:100%; font-size:11px;">
+										<tr>
+											<td style="width:50%; padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_land_building">&#10003;</t>
+												</span>
+												Land &amp; Building
+											</td>
+											<td style="width:50%; padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_vehicle">&#10003;</t>
+												</span>
+												Vehicles
+											</td>
+										</tr>
+										<tr>
+											<td style="padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_plant_equipment">&#10003;</t>
+												</span>
+												Plant &amp; Equipments
+											</td>
+											<td style="padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_furniture">&#10003;</t>
+												</span>
+												Furniture &amp; Fixtures
+											</td>
+										</tr>
+										<tr>
+											<td style="padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_office_equipment">&#10003;</t>
+												</span>
+												Office Equipments
+											</td>
+											<td style="padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_tools">&#10003;</t>
+												</span>
+												Tools
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+
+						<!-- ===== ITEM DESCRIPTION | TYPE | MODEL | SOURCE ===== -->
+						<table style="width:100%; border-collapse:collapse; margin-bottom:6px;">
+							<tr>
+								<td style="width:22%; border:1px solid #000; padding:5px;">
+									<strong>ITEM DESCRIPTION:</strong>
+								</td>
+								<td style="width:78%; border:1px solid #000; padding:5px;" colspan="3">
+									<span t-field="o.item_des"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="border:1px solid #000; padding:5px;">
+									<strong>Type:</strong>
+								</td>
+								<td style="width:28%; border:1px solid #000; padding:5px;">
+									<span t-field="o.item_type"/>
+								</td>
+								<td style="width:15%; border:1px solid #000; padding:5px;">
+									<strong>SOURCE:</strong>
+								</td>
+								<td style="width:35%; border:1px solid #000; padding:5px;">
+									<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+										<t t-if="o.local">&#10003;</t>
+									</span>
+									Local
+									&#160;&#160;&#160;
+									<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+										<t t-if="o.imported">&#10003;</t>
+									</span>
+									Imported
+								</td>
+							</tr>
+							<tr>
+								<td style="border:1px solid #000; padding:5px;">
+									<strong>Model:</strong>
+								</td>
+								<td style="border:1px solid #000; padding:5px;" colspan="3">
+									<span t-field="o.model"/>
+								</td>
+							</tr>
+						</table>
+
+						<!-- ===== COST DETAILS ===== -->
+						<table style="width:100%; border-collapse:collapse; margin-bottom:6px;">
+							<tr>
+								<td style="width:28%; border:1px solid #000; padding:5px;">
+									<strong>ESTIMATED COST:</strong>
+								</td>
+								<td style="width:22%; border:1px solid #000; padding:5px;">
+									Rs:
+									<span t-field="o.estimated_cost"/>
+								</td>
+								<td style="width:28%; border:1px solid #000; padding:5px;">
+									<strong>DEPRECIATION:</strong>
+								</td>
+								<td style="width:22%; border:1px solid #000; padding:5px;"></td>
+							</tr>
+							<tr>
+								<td style="border:1px solid #000; padding:5px; font-size:10px;">
+									Less: Resale Value of replaced asset (if any)
+								</td>
+								<td style="border:1px solid #000; padding:5px;">
+									Rs:
+									<span t-field="o.resale_value"/>
+								</td>
+								<td style="border:1px solid #000; padding:5px;">
+									<strong>YEARS:</strong>
+								</td>
+								<td style="border:1px solid #000; padding:5px;">
+									<span t-field="o.depreciation_years"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="border:1px solid #000; padding:5px;">
+									<strong>NET COST:</strong>
+								</td>
+								<td style="border:1px solid #000; padding:5px;">
+									Rs:
+									<span t-field="o.net_cost"/>
+								</td>
+								<td style="border:1px solid #000; padding:5px;">
+									<strong>COST Per Annum (Rs):</strong>
+								</td>
+								<td style="border:1px solid #000; padding:5px;">
+									<span t-field="o.cost_per_annum"/>
+								</td>
+							</tr>
+						</table>
+
+						<!-- ===== JUSTIFICATION ===== -->
+						<table style="width:100%; border-collapse:collapse; margin-bottom:6px;">
+							<tr>
+								<td style="width:28%; border:1px solid #000; padding:6px; vertical-align:middle;">
+									<strong>JUSTIFICATION</strong>
+									<br/>
+									<span style="font-size:9px;">(ATTACH EVALUATION FORM):</span>
+								</td>
+								<td style="width:72%; border:1px solid #000; padding:6px;">
+									<table style="width:100%; font-size:11px;">
+										<tr>
+											<td style="width:45%; padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_new_business">&#10003;</t>
+												</span>
+												New Business Development
+											</td>
+											<td style="width:30%; padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_higher_productivity">&#10003;</t>
+												</span>
+												Higher Productivity
+											</td>
+										</tr>
+										<tr>
+											<td style="padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_cost_saving">&#10003;</t>
+												</span>
+												Cost Saving
+											</td>
+											<td style="padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_others">&#10003;</t>
+												</span>
+												Others
+											</td>
+										</tr>
+										<tr>
+											<td style="padding:3px 0;">
+												<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+													<t t-if="o.is_system_improvement">&#10003;</t>
+												</span>
+												Systems Improvement
+											</td>
+											<td></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+
+						<!-- ===== BUDGET INFO + BUDGET ANALYSIS (side by side) ===== -->
+						<table style="width:100%; border-collapse:collapse; margin-bottom:6px;">
+							<tr>
+								<!-- Budget Info left -->
+								<td style="width:48%; border:1px solid #000; padding:6px; vertical-align:top;">
+									<strong>BUDGET INFO:</strong>
+									<br/>
+									<br/>
+									Budget Reference No.:&#160;
+									<span t-field="o.budget_reference"/>
+									<br/>
+									<br/>
+									<strong style="font-size:10px;">CLICK BOX:</strong>&#160;&#160;
+									<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+										<t t-if="o.budget_status == 'budgeted'">&#10003;</t>
+									</span>
+									BUDGETED&#160;&#160;&#160;
+									<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+										<t t-if="o.budget_status == 'unbudgeted'">&#10003;</t>
+									</span>
+									UNBUDGETED
+								</td>
+								<!-- Budget Analysis right -->
+								<td style="width:52%; border:1px solid #000; padding:0; vertical-align:top;">
+									<table style="width:100%; border-collapse:collapse;">
+										<tr>
+											<th style="border-bottom:1px solid #000; border-right:1px solid #000; padding:4px 6px; background:#eeeeee; width:75%; text-align:left;">
+												BUDGET ANALYSIS
+											</th>
+											<th style="border-bottom:1px solid #000; padding:4px 6px; background:#eeeeee; width:25%; text-align:center;">
+												Rs.
+											</th>
+										</tr>
+										<tr>
+											<td style="border-bottom:1px solid #000; border-right:1px solid #000; padding:4px 6px;">
+												1. CAPEX BUDGET
+											</td>
+											<td style="border-bottom:1px solid #000; padding:4px 6px; text-align:right;">
+												<span t-field="o.capex_budget"/>
+											</td>
+										</tr>
+										<tr>
+											<td style="border-bottom:1px solid #000; border-right:1px solid #000; padding:4px 6px;">
+												2. APPROVED TO DATE
+											</td>
+											<td style="border-bottom:1px solid #000; padding:4px 6px; text-align:right;">
+												<span t-field="o.approved_to_date"/>
+											</td>
+										</tr>
+										<tr>
+											<td style="border-bottom:1px solid #000; border-right:1px solid #000; padding:4px 6px;">
+												3. AVAILABLE BALANCE
+											</td>
+											<td style="border-bottom:1px solid #000; padding:4px 6px; text-align:right;">
+												<span t-field="o.available_balance"/>
+											</td>
+										</tr>
+										<tr>
+											<td style="border-bottom:1px solid #000; border-right:1px solid #000; padding:4px 6px;">
+												4. THIS CIR
+											</td>
+											<td style="border-bottom:1px solid #000; padding:4px 6px; text-align:right;">
+												<span t-field="o.this_cir"/>
+											</td>
+										</tr>
+										<tr>
+											<td style="border-right:1px solid #000; padding:4px 6px;">
+												5. REMAINING BALANCE
+											</td>
+											<td style="padding:4px 6px; text-align:right;">
+												<span t-field="o.remaining_balance"/>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+
+						<!-- ===== APPROVAL SECTION ===== -->
+						<table style="width:100%; border-collapse:collapse; margin-bottom:6px;">
+							<!-- Section heading row -->
+							<tr>
+								<td colspan="2" style="border:1px solid #000; padding:5px; background:#eeeeee;">
+									<strong>APPROVAL:</strong>
+								</td>
+							</tr>
+							<!-- Sub-headings -->
+							<tr>
+								<td style="width:50%; border:1px solid #000; padding:5px; text-align:center; background:#f5f5f5;">
+									<strong>ORIGINATING BA/BSD</strong>
+								</td>
+								<td style="width:50%; border:1px solid #000; padding:5px; text-align:center; background:#f5f5f5;">
+									<strong>REVIEW AND APPROVAL</strong>
+								</td>
+							</tr>
+							<!-- Content row -->
+							<tr>
+								<!-- Left: Originating BA/BSD signatories -->
+								<td style="border:1px solid #000; padding:0; vertical-align:top;">
+									<table style="width:100%; border-collapse:collapse; font-size:11px;">
+										<tr>
+											<td style="width:38%; border-bottom:1px solid #000; padding:9px 6px; font-weight:bold;">
+												CIR Originator
+											</td>
+											<td style="border-bottom:1px solid #000; padding:9px 6px;">
+												<span t-field="o.cir_org"/>
+											</td>
+										</tr>
+										<tr>
+											<td style="border-bottom:1px solid #000; padding:9px 6px; font-weight:bold;">
+												Dept Head
+											</td>
+											<td style="border-bottom:1px solid #000; padding:9px 6px;">
+												<span t-field="o.dep_head"/>
+											</td>
+										</tr>
+										<tr>
+											<td style="border-bottom:1px solid #000; padding:9px 6px; font-weight:bold;">
+												BA/BSD FC
+											</td>
+											<td style="border-bottom:1px solid #000; padding:9px 6px;">
+												<span t-field="o.ba_bsd_fc"/>
+											</td>
+										</tr>
+										<tr>
+											<td style="padding:9px 6px; font-weight:bold;">
+												BA/BSD Head
+											</td>
+											<td style="padding:9px 6px;">
+												<span t-field="o.ba_bsd_head"/>
+											</td>
+										</tr>
+									</table>
+								</td>
+
+								<!-- Right: CFO + CEO checkboxes and signature lines -->
+								<td style="border:1px solid #000; padding:6px; vertical-align:top;">
+									<table style="width:100%; border-collapse:collapse; font-size:11px;">
+										<tr>
+											<td style="width:50%; padding:5px; vertical-align:top; border-right:1px solid #ccc;">
+												<strong>CFO</strong>
+												<br/>
+												<div style="margin-bottom:6px;">
+													<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+														<t t-if="o.aprove_cfo">✓</t>
+													</span>
+													Approved
+												</div>
+												<div style="margin-bottom:6px;">
+													<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+														<t t-if="o.not_aprove_cfo">✓</t>
+													</span>
+													Not Approved
+												</div>
+												<div style="margin-bottom:6px;">
+													<strong>Approved By CFO:</strong>
+													<span t-field="o.cfo_approved_by"/>
+												</div>
+											</td>
+
+											<td style="width:50%; padding:5px; vertical-align:top;">
+												<strong>CEO</strong>
+												<br/>
+												<div style="margin-bottom:6px;">
+													<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+														<t t-if="o.aprove_ceo">✓</t>
+													</span>
+													Approved
+												</div>
+												<div style="margin-bottom:6px;">
+													<span style="border:1px solid #000; display:inline-block; width:13px; height:13px; text-align:center; line-height:13px; font-size:11px; margin-right:4px; vertical-align:middle;">
+														<t t-if="o.not_aprove_ceo">✓</t>
+													</span>
+													Not Approved
+												</div>
+												<div style="margin-bottom:6px;">
+													<strong>Approved By CEO:</strong>
+													<span t-field="o.ceo_approved_by"/>
+												</div>
+											</td>
+										</tr>
+										<!-- Signature / date row -->
+										<tr>
+											<td style="width:50%; padding:18px 5px 5px 5px; text-align:center; border-right:1px solid #ccc;">
+												<div style="padding-top:4px;">
+
+													<span style="font-size:10px;">Date:
+														<span t-field="o.cfo_approved_date"/>
+													</span>
+												</div>
+											</td>
+											<td style="width:50%; padding:18px 5px 5px 5px; text-align:center; ">
+												<div style="padding-top:4px;">
+
+													<span style="font-size:10px;">Date:
+														<span t-field="o.ceo_approved_date"/>
+													</span>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+
+</odoo>

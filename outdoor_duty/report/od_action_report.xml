@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="outdoor_print_layout_paper_format" model="report.paperformat">
+            <field name="name">European A4</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_od" model="ir.actions.report">
+        <field name="name">Print Od</field>
+        <field name="model">outdoor.duty</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">outdoor_duty.report_od</field>
+        <field name="report_file">outdoor_duty.report_od</field>
+        <field name="binding_model_id" ref="model_outdoor_duty"/>
+        <field name="binding_type">report</field>
+    </record>
+    <record id="action_visit_report_od" model="ir.actions.report">
+        <field name="name">Print Report</field>
+        <field name="model">outdoor.duty</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">outdoor_duty.visit_report_od</field>
+        <field name="report_file">outdoor_duty.visit_report_od</field>
+        <field name="binding_model_id" ref="model_outdoor_duty"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="outdoor_print_layout_paper_format"/>
+    </record>
+    <record id="action_report_travel_authority" model="ir.actions.report">
+        <field name="name">Travel Authority</field>
+        <field name="model">travel.authority</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">outdoor_duty.report_travel_authority</field>
+        <field name="report_file">outdoor_duty.report_travel_authority</field>
+        <field name="binding_model_id" ref="model_travel_authority"/>
+        <field name="binding_type">report</field>
+    </record>
+    <record id="action_visit_report_travel_authority" model="ir.actions.report">
+        <field name="name">Visit Report</field>
+        <field name="model">travel.authority</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">outdoor_duty.visit_report_travel_authority</field>
+        <field name="report_file">outdoor_duty.visit_report_travel_authority</field>
+        <field name="binding_model_id" ref="model_travel_authority"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="menu_od_request_root"
+              name="Outdoor Duty"
+              web_icon="outdoor_duty,static/description/icon.png"
+              groups=""
+              sequence="14"/>
+    <menuitem id="menu_travel_authority_request_root"
+              name="Travel Authority"
+              web_icon="outdoor_duty,static/description/odoo_icon.png"
+              groups=""
+              sequence="15"/>
+
+
+</odoo>

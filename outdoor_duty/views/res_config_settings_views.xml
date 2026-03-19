@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_od_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.outdoor.duty</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Outdoor Duty" id="outdoor" string="Outdoor Duty" data-key="outdoor_duty" >
+                        <h2>Outdoor Duty Management</h2>
+                        <div class="row mt16 o_settings_container" id="end_contract_setting">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+<!--                                    <span class="o_form_label">End Date Contract Alert</span>-->
+                                    <div class="text-muted content-group mt16">
+                                        <span class="o_form_label">How many days would you like to add to the old outdoor duty? </span>
+                                        <field name="previous_od_days" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                        <span> Days </span>
+                                    </div>
+                                    <div class="text-muted content-group mt16">
+                                        <span class="o_form_label">Is Pre Audit Is Mandatory? </span>
+                                        <field name="ta_audit_mandatory" class="text-center"  />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="outdoor_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'outdoor_duty', 'bin_size': False}</field>
+        </record>
+
+         <menuitem id="menu_config_od_request"
+              name="Configuration"
+              parent="menu_od_request_root"
+              sequence="10"/>
+
+        <menuitem id="outdoor_config_settings_menu" name="Settings"
+            parent="outdoor_duty.menu_config_od_request" sequence="0" action="outdoor_config_settings_action"
+            groups="base.group_system"/>
+    </data>
+</odoo>

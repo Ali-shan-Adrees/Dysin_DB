@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_contract_form_additional_allowance" model="ir.ui.view">
+        <field name="name">hr.contract.view.additional.allowance</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='salary']//div[@name='wage']" position="after">
+                <field name="deduction_check" force_save="1"/>
+                <field name="total_salary" force_save="True"/>
+                <field name="Basic_salary" force_save="True"/>
+                <field name="Allowance" force_save="True"/>
+                <field name="adhoc_allowance" force_save="True"/>
+                <field name="medical_allowance" force_save="True"/>
+                <field name="food_allowance" force_save="True"/>
+                <field name="Allowance_fuel"/>
+                <field name="Allowance_mobile"/>
+                <field name="Allowance_car"/>
+                <field name="special_allowance" force_save="1"/>
+                <field name="personal_allowance" force_save="1"/>
+                <field name="other_allowance" force_save="1"/>
+                <field name="Allowance_house" force_save="True"/>
+                <field name="arrears" force_save="1"/>
+
+                <field name="gazette_comp" force_save="1"/>
+                <field name="gross_finals" readonly="1" force_save="True"/>
+                <field name="cash_salary" force_save="True"/>
+                <field name="bank_salary" force_save="True"/>
+            </xpath>
+            <xpath expr="//group[@name='salary']" position="after">
+                <group string="Contract Salary (Deduction)">
+                    <field name="Deduction_Tax"/>
+                    <field name="Deduction_EOBI"/>
+                    <field name="Deduction_PF" />
+                    <field name="Deduction_Advance" readonly="0" force_save="1"/>
+                    <field name="Deduction_Loan" readonly="0" />
+                    <field name="Deduction_MobileBills"/>
+                    <field name="deduction_short_leave" readonly="1" force_save="1"/>
+                    <field name="deduction_half_leave" readonly="1" force_save="1"/>
+                    <field name="deduction_lates" readonly="1" force_save="1"/>
+                    <field name="deduction_absent" readonly="1" force_save="1"/>
+                    <field name="Deduction_Finals" force_save="True"/>
+                    <field name="Net_finals" force_save="True"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

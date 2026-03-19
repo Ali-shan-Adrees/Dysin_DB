@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="group_only_own_record_employee_profile" model="res.groups">
+        <field name="name">Only Own Profile</field>
+        <field name="category_id" ref="base.module_category_human_resources_employees"/>
+        <field name="comment">Employee Can view own profile</field>
+        <field name="implied_ids" eval="[(6,0, [ref('base.group_user')])]"/>
+    </record>
+
+</odoo>

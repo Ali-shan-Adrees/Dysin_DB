@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_days_week,days.week.user,model_days_week,hr.group_hr_user,1,1,1,1
+access_education_detail,education.detail,model_education_detail,hr.group_hr_user,1,1,1,1
+access_job_levels,job.levels,model_job_levels,hr.group_hr_user,1,1,1,1
+

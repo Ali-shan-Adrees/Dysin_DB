@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    Below current Month Birth day Filter-->
+    <record id="hr_employee_search_inherit_birthday" model="ir.ui.view">
+        <field name="name">hr.employee.search.inherit.birthday</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="employee_code" string="Employee Code" filter_domain="[('employee_code','ilike',self)]"/>
+
+                <filter string="Birthday This Month"
+                        name="birthday_this_month"
+                        domain="[('is_birthday_this_month','=',True)]"/>
+            </xpath>
+            <xpath expr="//search//field[1]" position="before">
+                <field name="employee_code" string="Employee Code" filter_domain="[('employee_code','ilike',self)]"/>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="job_levels_form" model="ir.ui.view">
+        <field name="name">job.levels.form</field>
+        <field name="model">job.levels</field>
+        <field name="arch" type="xml">
+            <form string="Job Levels" delete="false" name="Job Levels" class="o_form_project_tasks">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" style="width:40%%;"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_currency" invisible="1"/>
+                            <field name="minimum_salary"/>
+                            <field name="maximum_salary"/>
+                            <field name="petrol_liter"/>
+                            <field name="mobile_package"/>
+                            <field name="car_allocation" placeholder="1000CC"/>
+                            <field name="system_required"/>
+                        </group>
+                        <group>
+                            <field name="entertainment_budget"/>
+                            <field name="daily_allowance"/>
+                            <field name="hotel_accommodation"/>
+                            <field name="personal_stay_allowance"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="job_levels_tree" model="ir.ui.view">
+        <field name="name">job.levels.tree</field>
+        <field name="model">job.levels</field>
+        <field name="arch" type="xml">
+            <tree delete="false" export_xlsx="false">
+                <field name="name"/>
+                <field name="minimum_salary"/>
+                <field name="maximum_salary"/>
+                <field name="petrol_liter"/>
+                <field name="mobile_package"/>
+                <field name="car_allocation"/>
+                <field name="system_required"/>
+                <field name="entertainment_budget"/>
+                <field name="daily_allowance"/>
+                <field name="hotel_accommodation"/>
+                <field name="personal_stay_allowance"/>
+                <field name="company_id"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_job_levels_form" model="ir.actions.act_window">
+        <field name="name">Job Levels</field>
+        <field name="res_model">job.levels</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Job Levels From Here!
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_job_levels_form" name="Job Levels" groups="hr.group_hr_manager"
+              parent="hr.menu_human_resources_configuration" sequence="2" action="action_job_levels_form"/>
+
+</odoo>

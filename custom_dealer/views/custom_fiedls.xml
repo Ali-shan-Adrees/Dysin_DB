@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_employee_view_attendance" model="ir.ui.view">
+            <field name="name">sales.view.sales</field>
+            <field name="model">custom_dea</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//page[@name='sales']" position="after">
+                        <page string="sales form" name="sales form"
+                              groups="hr_attendance.group_hr_attendance_user">
+                            <field name="dealer_name">Dealer Name</field>
+                            <field name="discount">Discount</field>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="hr_attendance_view_filter_attend_zktecho" model="ir.ui.view">
+
+        </record>
+
+    </data>
+</odoo>
